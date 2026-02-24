@@ -1,0 +1,76 @@
+#!/bin/sh
+# Maven Wrapper startup script for Unix
+
+# Resolve links and find script directory
+PRG="$0"
+while [ -h "$PRG" ]; do
+    ls=`ls -ld "$PRG"`
+    link=`expr "$ls" : '.*-> \(.*\)$'`
+    if expr "$link" : '/.*' > /dev/null; then
+        PRG="$link"
+    else
+        PRG=`dirname "$PRG"`"/$link"
+    fi
+done
+
+SAVED="`pwd`"
+cd "`dirname \"$PRG\"`/" >/dev/null
+APP_HOME="`pwd -P`"
+cd "$SAVED" >/dev/null
+
+APP_NAME="Maven"
+APP_BASE_NAME=`basename "$0"`
+
+# Add default JVM options here
+DEFAULT_JVM_OPTS='"-Xmx64m" "-Xms64m"'
+
+# Get Java command
+if [ -n "$JAVA_HOME" ]; then
+    if [ -x "$JAVA_HOME/jre/sh/java" ]; then
+        JAVACMD="$JAVA_HOME/jre/sh/java"
+    else
+        JAVACMD="$JAVA_HOME/bin/java"
+    fi
+    if [ ! -x "$JAVACMD" ]; then
+        echo "Error: JAVA_HOME is set to an invalid directory." >&2
+        echo "Please set the JAVA_HOME variable in your environment to match the location of your Java installation." >&2
+        exit 1
+    fi
+else
+    JAVACMD="java"
+    which java >/dev/null 2>&1 || { echo "Error: JAVA_HOME is not set and no 'java' command could be found in your PATH." >&2; echo "Please set the JAVA_HOME variable in your environment to match the location of your Java installation." >&2; exit 1; }
+fi
+
+# Increase the maximum file descriptors if we can
+if [ "$cygwin" = "false" -a "$darwin" = "false" ]; then
+    MAX_FD_LIMIT=`ulimit -H -n`
+    if [ $? -eq 0 ]; then
+        if [ "$MAX_FD" = "maximum" -o "$MAX_FD" = "max" ]; then
+            MAX_FD="$MAX_FD_LIMIT"
+        fi
+        ulimit -n $MAX_FD
+        if [ $? -ne 0 ]; then
+            echo "Warning: Could not set maximum file descriptor limit: $MAX_FD"
+        fi
+    else
+        echo "Warning: Could not query maximum file descriptor limit: $MAX_FD_LIMIT"
+    fi
+fi
+
+# Escape application args
+for arg in "$@"; do
+    PASS+=("$arg")
+done
+
+# Download wrapper jar if not exists
+WRAPPER_JAR="$APP_HOME/.mvn/wrapper/maven-wrapper.jar"
+WRAPPER_LAUNCHER="org.apache.maven.wrapper.MavenWrapperMain"
+
+exec "$JAVACMD" \
+    $DEFAULT_JVM_OPTS \
+    -classpath "$WRAPPER_JAR" \
+    "-Dmaven.home=${M2_HOME}" \
+    "-Dmaven.multiModuleProjectDirectory=${MAVEN_PROJECTBASEDIR}" \
+    ${PASS} \
+    "$WRAPPER_LAUNCHER" \
+    "$@"
