@@ -1,184 +1,176 @@
 # Production Optimizer
 
-Sistema completo de otimização de planejamento de produção utilizando algoritmo guloso (greedy algorithm).
+Sistema de otimização de planejamento de produção baseado em algoritmo guloso (greedy algorithm), com gestão completa de produtos e matérias-primas.
 
-## Descrição do Projeto
+## 📌 Sobre o Projeto
 
-O **Production Optimizer** é uma aplicação full-stack desenvolvida para otimizar o processo de planejamento de produção industrial. O sistema permite a gestão eficiente de produtos e matérias-primas, calculando automaticamente a melhor combinação de recursos disponíveis para maximizar a produção com base nas restrições de insumos.
+O Production Optimizer foi desenvolvido com o objetivo de simular um cenário real de planejamento industrial, onde é necessário decidir o que produzir e em qual quantidade, considerando limitações de estoque e priorização por valor de venda.
 
-### Principais Funcionalidades
+A aplicação permite:
 
-- **Gestão de Matérias-Primas**: Cadastro, edição, visualização e exclusão de matérias-primas disponíveis em estoque
-- **Gestão de Produtos**: Cadastro de produtos com composição definida por matérias-primas
-- **Otimização de Produção**: Algoritmo guloso que calcula a quantidade ideal de cada produto a ser fabricado, considerando:
-  - Valor de venda dos produtos (prioridade para produtos de maior valor)
-  - Disponibilidade de matérias-primas em estoque
-  - Composições definidas para cada produto
+- Gerenciar matérias-primas disponíveis
+- Cadastrar produtos com suas respectivas composições
+- Executar um cálculo automático que determina a melhor estratégia de produção com base nos recursos disponíveis
 
-## Tecnologias Utilizadas
+O foco do projeto está na clareza da arquitetura, separação de responsabilidades e implementação objetiva da regra de negócio.
+
+## 🚀 Funcionalidades
+
+### ✔ Gestão de Matérias-Primas
+- Cadastro, edição e exclusão
+- Controle de estoque
+- Listagem completa via API REST
+
+### ✔ Gestão de Produtos
+- Cadastro de produtos com valor de venda
+- Associação de matérias-primas e quantidades necessárias
+- Edição e exclusão
+
+### ✔ Otimização de Produção
+Implementação de algoritmo guloso que:
+- Ordena produtos pelo maior valor de venda
+- Calcula a quantidade máxima possível de produção com base no estoque
+- Atualiza o saldo das matérias-primas após cada decisão
+- Maximiza o retorno dentro das restrições disponíveis
+
+## 🛠 Tecnologias Utilizadas
 
 ### Backend
-- **Java 17**
-- **Spring Boot 3.2.0**
-- **Spring Data JPA**
-- **Banco de Dados H2** (em memória)
-- **Maven**
+- Java 17
+- Spring Boot 3.2
+- Spring Data JPA
+- Banco H2 (em memória)
+- Maven
 
 ### Frontend
-- **Vue.js 3**
-- **Vite** (build tool)
-- **Vue Router** (gerenciamento de rotas)
-- **Vue i18n** (internacionalização)
-- **Axios** (comunicação com API)
+- Vue.js 3
+- Vite
+- Vue Router
+- Vue i18n
+- Axios
 
-## Estrutura de Pastas
+## 📂 Estrutura do Projeto
 
 ```
 production-optimizer/
-├── backend/                    # API REST Spring Boot
-│   ├── src/main/java/         # Código fonte Java
-│   │   └── com/example/productionoptimizer/
-│   │       ├── controller/    # Controladores REST
-│   │       ├── service/       # Lógica de negócio
-│   │       ├── repository/    # Repositórios JPA
-│   │       ├── entity/        # Entidades do banco
-│   │       ├── dto/           # Data Transfer Objects
-│   │       └── exception/     # Tratamento de exceções
-│   ├── src/main/resources/    # Arquivos de configuração
-│   ├── src/test/              # Testes unitários
-│   └── pom.xml                # Dependências Maven
+├── backend/
+│   ├── controller/
+│   ├── service/
+│   ├── repository/
+│   ├── entity/
+│   ├── dto/
+│   └── exception/
 │
-├── frontend/                  # Aplicação Vue.js
-│   ├── src/
-│   │   ├── views/             # Componentes de página
-│   │   ├── router/            # Configuração de rotas
-│   │   ├── api/               # Configuração Axios
-│   │   ├── i18n/              # Mensagens internacionalizadas
-│   │   ├── App.vue            # Componente principal
-│   │   └── main.js            # Entry point
-│   ├── dist/                  # Build de produção
-│   ├── package.json           # Dependências npm
-│   └── vite.config.js         # Configuração Vite
+├── frontend/
+│   ├── views/
+│   ├── router/
+│   ├── api/
+│   ├── i18n/
+│   └── dist/
 │
-└── README.md                  # Este arquivo
+└── README.md
 ```
 
-## Instruções para Executar Localmente
+A organização segue uma arquitetura em camadas no backend (Controller → Service → Repository), garantindo separação clara de responsabilidades.
+
+## ▶ Como Executar Localmente
 
 ### Pré-requisitos
-
-- Java 17 ou superior
-- Node.js (versão LTS)
+- Java 17+
+- Node.js (LTS)
 - Maven
 
-### Backend
-
-1. Acesse o diretório do backend:
-
+### 🔹 Backend
 ```
 bash
 cd backend
-```
-
-2. Compile e execute a aplicação:
-
-```
-bash
 ./mvnw spring-boot:run
 ```
 
-A API estará disponível em: `http://localhost:8080`
+API disponível em: **http://localhost:8080**
 
-3. Para executar os testes:
-
+Executar testes:
 ```
 bash
 ./mvnw test
 ```
 
-### Frontend
-
-1. Acesse o diretório do frontend:
-
+### 🔹 Frontend
 ```
 bash
 cd frontend
-```
-
-2. Instale as dependências:
-
-```
-bash
 npm install
-```
-
-3. Execute o servidor de desenvolvimento:
-
-```
-bash
 npm run dev
 ```
 
-A aplicação frontend estará disponível em: `http://localhost:3000`
+Aplicação disponível em: **http://localhost:3000**
 
-4. Para gerar o build de produção:
-
+Gerar build de produção:
 ```
 bash
 npm run build
 ```
 
-## Endpoints da API
+## 🔗 Endpoints da API
 
 ### Matérias-Primas
 
-| Método | Endpoint | Descrição |
-|--------|----------|------------|
-| GET | /api/raw-materials | Listar todas as matérias-primas |
-| GET | /api/raw-materials/{id} | Obter matéria-prima por ID |
-| POST | /api/raw-materials | Criar nova matéria-prima |
-| PUT | /api/raw-materials/{id} | Atualizar matéria-prima |
-| DELETE | /api/raw-materials/{id} | Excluir matéria-prima |
+| Método | Endpoint |
+|--------|----------|
+| GET | /api/raw-materials |
+| GET | /api/raw-materials/{id} |
+| POST | /api/raw-materials |
+| PUT | /api/raw-materials/{id} |
+| DELETE | /api/raw-materials/{id} |
 
 ### Produtos
 
-| Método | Endpoint | Descrição |
-|--------|----------|------------|
-| GET | /api/products | Listar todos os produtos |
-| GET | /api/products/{id} | Obter produto por ID |
-| POST | /api/products | Criar novo produto |
-| PUT | /api/products/{id} | Atualizar produto |
-| DELETE | /api/products/{id} | Excluir produto |
+| Método | Endpoint |
+|--------|----------|
+| GET | /api/products |
+| GET | /api/products/{id} |
+| POST | /api/products |
+| PUT | /api/products/{id} |
+| DELETE | /api/products/{id} |
 
 ### Otimização
 
-| Método | Endpoint | Descrição |
-|--------|----------|------------|
-| POST | /api/optimization/optimize | Executar algoritmo de otimização |
+| Método | Endpoint |
+|--------|----------|
+| POST | /api/optimization/optimize |
 
-## Algoritmo de Otimização
+## 🧠 Estratégia de Otimização
 
-O sistema utiliza um algoritmo guloso para otimizar a produção:
+O algoritmo implementado segue a abordagem gulosa:
 
-1. **Ordenação**: Produtos são ordenados por valor de venda (maior primeiro)
-2. **Cálculo**: Para cada produto, calcula-se a quantidade máxima producible com base nas matérias-primas disponíveis
-3. **Produção**: Fabrica-se a maior quantidade possível respeitando as restrições de materiais
-4. **Atualização**: Após cada produto, atualiza-se o restante das matérias-primas disponíveis
+1. Produtos são ordenados por maior valor de venda
+2. Para cada produto, calcula-se o limite máximo de produção com base na matéria-prima disponível
+3. Produz-se o máximo possível
+4. Atualiza-se o estoque restante antes de avaliar o próximo item
 
-## Console de Desenvolvimento
+Essa abordagem privilegia retorno financeiro imediato, mantendo a lógica simples, eficiente e previsível.
 
-Para acessar o console H2 (apenas desenvolvimento):
-- URL: `http://localhost:8080/h2-console`
-- JDBC URL: `jdbc:h2:mem:productiondb`
+## 🧪 Ambiente de Desenvolvimento
 
-## Informações do Desenvolvimento
+Console H2 disponível em: **http://localhost:8080/h2-console**
 
-Este projeto foi desenvolvido em aproximadamente **11h43m** no dia **24/02**.
+JDBC URL: `jdbc:h2:mem:productiondb`
 
-## Repositório
+## ⏱ Tempo de Desenvolvimento
 
-O código fonte está disponível em: [https://github.com/kaike9612/production-optimizer](https://github.com/kaike9612/production-optimizer)
+Este projeto foi desenvolvido em aproximadamente **11h43m**, no dia **24/02**, com foco em:
 
-## Licença
+- Estrutura organizada
+- Clareza na regra de negócio
+- Separação adequada entre backend e frontend
+- Implementação funcional do algoritmo
 
-Este projeto é para fins educacionais e de demonstração.
+## 📄 Observações
+
+Este projeto tem caráter educacional e demonstrativo, com foco na aplicação prática de conceitos de:
+
+- Arquitetura em camadas
+- API REST
+- Integração frontend/backend
+- Algoritmos de otimização
+- Organização de código para avaliação técnica
