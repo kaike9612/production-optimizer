@@ -1,6 +1,6 @@
-# Production Optimizer
+# Production Optimizer (Teste Prático Full Stack – P&D)
 
-Sistema de otimização de planejamento de produção baseado em algoritmo guloso (greedy algorithm), com gestão completa de produtos e matérias-primas.
+Aplicação full stack para gerenciamento de insumos (matérias-primas) e otimização de produção, sugerindo o que fabricar para obter o maior valor total de venda com base no estoque disponível.
 
 ## 📌 Sobre o Projeto
 
