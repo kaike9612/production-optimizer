@@ -323,11 +323,20 @@ export default {
 </script>
 
 <style scoped>
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
+.page-header {
+  margin-bottom: 1.5rem;
+}
+
+.page-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.page-subtitle {
+  color: #64748b;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
 }
 
 .modal-large {
@@ -335,9 +344,9 @@ export default {
 }
 
 .compositions-section {
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid #eee;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e2e8f0;
 }
 
 .compositions-header {
@@ -349,14 +358,18 @@ export default {
 
 .compositions-header h4 {
   font-size: 1rem;
-  color: #555;
+  font-weight: 600;
+  color: #475569;
 }
 
 .composition-row {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.75rem;
   align-items: flex-start;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
+  padding: 1rem;
+  background-color: #f8fafc;
+  border-radius: 8px;
 }
 
 .composition-row .form-group {
@@ -365,20 +378,56 @@ export default {
 }
 
 .btn-remove {
-  background: #e74c3c;
-  color: white;
+  background: #fee2e2;
+  color: #ef4444;
   border: none;
-  width: 32px;
-  height: 32px;
-  border-radius: 4px;
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
   cursor: pointer;
   font-size: 1.25rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 0.2s;
 }
 
 .btn-remove:hover {
-  background: #c0392b;
+  background: #fecaca;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem 0.625rem;
+  background-color: #f0fdf4;
+  color: #16a34a;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.actions .btn {
+  padding: 0.375rem 0.625rem;
+  font-size: 0.75rem;
+}
+
+.actions .btn-secondary {
+  background-color: #f1f5f9;
+  color: #475569;
+}
+
+.actions .btn-secondary:hover {
+  background-color: #e2e8f0;
+}
+
+.actions .btn-danger {
+  background-color: #fee2e2;
+  color: #ef4444;
+}
+
+.actions .btn-danger:hover {
+  background-color: #fecaca;
 }
 </style>

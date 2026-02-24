@@ -244,10 +244,42 @@ export default {
 </script>
 
 <style scoped>
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
+.page-header {
+  margin-bottom: 1.5rem;
+}
+
+.page-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.page-subtitle {
+  color: #64748b;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.actions .btn {
+  padding: 0.375rem 0.625rem;
+  font-size: 0.75rem;
+}
+
+.actions .btn-secondary {
+  background-color: #f1f5f9;
+  color: #475569;
+}
+
+.actions .btn-secondary:hover {
+  background-color: #e2e8f0;
+}
+
+.actions .btn-danger {
+  background-color: #fee2e2;
+  color: #ef4444;
+}
+
+.actions .btn-danger:hover {
+  background-color: #fecaca;
 }
 </style>
