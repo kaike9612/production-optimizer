@@ -1,73 +1,94 @@
 <template>
   <div class="optimization">
-    <div class="card">
-      <div class="card-header">
-        <h2 class="card-title">{{ $t('optimization.title') }}</h2>
-        <button @click="runOptimization" class="btn btn-primary" :disabled="loading">
-          {{ loading ? $t('common.loading') : $t('optimization.optimize') }}
-        </button>
+    <div class="page-header">
+      <div>
+        <h1 class="page-title">{{ $t('optimization.title') }}</h1>
+        <p class="page-subtitle">Otimize sua produção baseado nas matérias-primas disponíveis</p>
+      </div>
+      <button @click="runOptimization" class="btn btn-primary" :disabled="loading">
+        {{ loading ? $t('common.loading') : $t('optimization.optimize') }}
+      </button>
+    </div>
+
+    <div v-if="error" class="error">{{ error }}</div>
+
+    <div v-if="!result && !loading && !error" class="empty-state">
+      <div class="empty-icon">📊</div>
+      <p>{{ $t('optimization.noResults') }}</p>
+      <p class="empty-hint">Clique no botão "Recalcular" para otimizar sua produção</p>
+    </div>
+
+    <!-- KPI Cards -->
+    <div v-if="result" class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-icon products">📦</div>
+        <div class="kpi-content">
+          <div class="kpi-label">{{ $t('optimization.kpiProducts') }}</div>
+          <div class="kpi-value">{{ result.producedProducts?.length || 0 }}</div>
+        </div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon units">🏭</div>
+        <div class="kpi-content">
+          <div class="kpi-label">{{ $t('optimization.kpiUnits') }}</div>
+          <div class="kpi-value">{{ totalUnits }}</div>
+        </div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon value">💰</div>
+        <div class="kpi-content">
+          <div class="kpi-label">{{ $t('optimization.kpiValue') }}</div>
+          <div class="kpi-value highlight">{{ formatCurrency(result.totalSalesValue) }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div v-if="result" class="results">
+      <div v-if="result.producedProducts && result.producedProducts.length > 0" class="section">
+        <h3 class="section-title">{{ $t('optimization.producedProducts') }}</h3>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>{{ $t('optimization.productCode') }}</th>
+                <th>{{ $t('optimization.productName') }}</th>
+                <th>{{ $t('optimization.quantityProduced') }}</th>
+                <th>{{ $t('optimization.salesValue') }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(pp, index) in result.producedProducts" :key="index">
+                <td>{{ pp.productCode }}</td>
+                <td>{{ pp.productName }}</td>
+                <td><span class="quantity-badge">{{ pp.quantityProduced }}</span></td>
+                <td>{{ formatCurrency(pp.salesValue) }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
 
-      <div v-if="error" class="error">{{ error }}</div>
-
-      <div v-if="!result && !loading && !error" class="empty-state">
-        {{ $t('optimization.noResults') }}
-      </div>
-
-      <div v-if="result" class="results">
-        <div class="summary">
-          <div class="summary-item">
-            <span class="summary-label">{{ $t('optimization.totalSalesValue') }}:</span>
-            <span class="summary-value">{{ result.totalSalesValue }}</span>
-          </div>
-        </div>
-
-        <div v-if="result.producedProducts && result.producedProducts.length > 0" class="section">
-          <h3 class="section-title">{{ $t('optimization.producedProducts') }}</h3>
-          <div class="table-container">
-            <table>
-              <thead>
-                <tr>
-                  <th>{{ $t('optimization.productCode') }}</th>
-                  <th>{{ $t('optimization.productName') }}</th>
-                  <th>{{ $t('optimization.quantityProduced') }}</th>
-                  <th>{{ $t('optimization.salesValue') }}</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(pp, index) in result.producedProducts" :key="index">
-                  <td>{{ pp.productCode }}</td>
-                  <td>{{ pp.productName }}</td>
-                  <td>{{ pp.quantityProduced }}</td>
-                  <td>{{ pp.salesValue }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <div v-if="result.remainingRawMaterials && result.remainingRawMaterials.length > 0" class="section">
-          <h3 class="section-title">{{ $t('optimization.remainingRawMaterials') }}</h3>
-          <div class="table-container">
-            <table>
-              <thead>
-                <tr>
-                  <th>{{ $t('rawMaterial.code') }}</th>
-                  <th>{{ $t('rawMaterial.name') }}</th>
-                  <th>{{ $t('rawMaterial.availableQuantity') }}</th>
-                  <th>{{ $t('rawMaterial.unit') }}</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="rm in result.remainingRawMaterials" :key="rm.id">
-                  <td>{{ rm.code }}</td>
-                  <td>{{ rm.name }}</td>
-                  <td>{{ rm.availableQuantity }}</td>
-                  <td>{{ rm.unit }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+      <div v-if="result.remainingRawMaterials && result.remainingRawMaterials.length > 0" class="section">
+        <h3 class="section-title">{{ $t('optimization.remainingRawMaterials') }}</h3>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>{{ $t('rawMaterial.code') }}</th>
+                <th>{{ $t('rawMaterial.name') }}</th>
+                <th>{{ $t('rawMaterial.availableQuantity') }}</th>
+                <th>{{ $t('rawMaterial.unit') }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="rm in result.remainingRawMaterials" :key="rm.id">
+                <td>{{ rm.code }}</td>
+                <td>{{ rm.name }}</td>
+                <td>{{ rm.availableQuantity }}</td>
+                <td>{{ rm.unit }}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -75,7 +96,7 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { optimizationApi } from '../api'
 
 export default {
@@ -84,6 +105,16 @@ export default {
     const result = ref(null)
     const loading = ref(false)
     const error = ref('')
+
+    const totalUnits = computed(() => {
+      if (!result.value?.producedProducts) return 0
+      return result.value.producedProducts.reduce((sum, pp) => sum + (pp.quantityProduced || 0), 0)
+    })
+
+    const formatCurrency = (value) => {
+      if (value === null || value === undefined) return 'R$ 0,00'
+      return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value)
+    }
 
     const runOptimization = async () => {
       loading.value = true
@@ -104,6 +135,8 @@ export default {
       result,
       loading,
       error,
+      totalUnits,
+      formatCurrency,
       runOptimization
     }
   }
@@ -112,6 +145,9 @@ export default {
 
 <style scoped>
 .page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 1.5rem;
 }
 
@@ -125,6 +161,17 @@ export default {
   color: #64748b;
   font-size: 0.875rem;
   margin-top: 0.25rem;
+}
+
+.empty-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.empty-hint {
+  color: #94a3b8;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
 }
 
 /* KPI Cards Grid */

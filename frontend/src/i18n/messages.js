@@ -47,7 +47,10 @@ export default {
       productName: 'Product Name',
       quantityProduced: 'Quantity Produced',
       salesValue: 'Sales Value',
-      noResults: 'No optimization results yet'
+      noResults: 'No optimization results yet',
+      kpiProducts: 'Products to Produce',
+      kpiUnits: 'Total Units',
+      kpiValue: 'Total Value'
     },
     common: {
       loading: 'Loading...',
@@ -61,28 +64,28 @@ export default {
     nav: {
       rawMaterials: 'Matérias Primas',
       products: 'Produtos',
-      optimization: 'Otimizacao'
+      optimization: 'Otimização'
     },
     rawMaterial: {
-      title: 'Materias Primas',
-      code: 'Codigo',
+      title: 'Matérias Primas',
+      code: 'Código',
       name: 'Nome',
-      availableQuantity: 'Quantidade Disponivel',
+      availableQuantity: 'Quantidade Disponível',
       unit: 'Unidade',
-      add: 'Adicionar Materia Prima',
-      edit: 'Editar Materia Prima',
+      add: 'Adicionar Matéria Prima',
+      edit: 'Editar Matéria Prima',
       delete: 'Excluir',
       save: 'Salvar',
       cancel: 'Cancelar',
-      confirmDelete: 'Tem certeza que deseja excluir esta materia prima?',
-      noData: 'Nenhuma materia prima encontrada'
+      confirmDelete: 'Tem certeza que deseja excluir esta matéria prima?',
+      noData: 'Nenhuma matéria prima encontrada'
     },
     product: {
       title: 'Produtos',
-      code: 'Codigo',
+      code: 'Código',
       name: 'Nome',
       salesValue: 'Valor de Venda',
-      compositions: 'Composicoes',
+      compositions: 'Composições',
       add: 'Adicionar Produto',
       edit: 'Editar Produto',
       delete: 'Excluir',
@@ -90,28 +93,31 @@ export default {
       cancel: 'Cancelar',
       confirmDelete: 'Tem certeza que deseja excluir este produto?',
       noData: 'Nenhum produto encontrado',
-      addComposition: 'Adicionar Composicao',
-      rawMaterial: 'Materia Prima',
-      quantityNeeded: 'Quantidade Necessaria',
-      selectRawMaterial: 'Selecionar Materia Prima'
+      addComposition: 'Adicionar Composição',
+      rawMaterial: 'Matéria Prima',
+      quantityNeeded: 'Quantidade Necessária',
+      selectRawMaterial: 'Selecionar Matéria Prima'
     },
     optimization: {
-      title: 'Otimizacao de Producao',
-      optimize: 'Otimizar',
+      title: 'Otimização de Produção',
+      optimize: 'Recalcular',
       producedProducts: 'Produtos Produzidos',
       totalSalesValue: 'Valor Total de Vendas',
-      remainingRawMaterials: 'Materias Primas Restantes',
-      productCode: 'Codigo do Produto',
+      remainingRawMaterials: 'Matérias Primas Restantes',
+      productCode: 'Código do Produto',
       productName: 'Nome do Produto',
       quantityProduced: 'Quantidade Produzida',
       salesValue: 'Valor de Venda',
-      noResults: 'Nenhum resultado de otimizacao ainda'
+      noResults: 'Nenhum resultado de otimização ainda',
+      kpiProducts: 'Produtos para Produzir',
+      kpiUnits: 'Total de Unidades',
+      kpiValue: 'Valor Total'
     },
     common: {
       loading: 'Carregando...',
       error: 'Ocorreu um erro',
       success: 'Sucesso',
-      required: 'Este campo e obrigatorio',
+      required: 'Este campo é obrigatório',
       mustBePositive: 'Deve ser >= 0'
     }
   }

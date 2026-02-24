@@ -1,135 +1,184 @@
 # Production Optimizer
 
-A full-stack application for optimizing production planning using a greedy algorithm.
+Sistema completo de otimização de planejamento de produção utilizando algoritmo guloso (greedy algorithm).
 
-## Project Structure
+## Descrição do Projeto
+
+O **Production Optimizer** é uma aplicação full-stack desenvolvida para otimizar o processo de planejamento de produção industrial. O sistema permite a gestão eficiente de produtos e matérias-primas, calculando automaticamente a melhor combinação de recursos disponíveis para maximizar a produção com base nas restrições de insumos.
+
+### Principais Funcionalidades
+
+- **Gestão de Matérias-Primas**: Cadastro, edição, visualização e exclusão de matérias-primas disponíveis em estoque
+- **Gestão de Produtos**: Cadastro de produtos com composição definida por matérias-primas
+- **Otimização de Produção**: Algoritmo guloso que calcula a quantidade ideal de cada produto a ser fabricado, considerando:
+  - Valor de venda dos produtos (prioridade para produtos de maior valor)
+  - Disponibilidade de matérias-primas em estoque
+  - Composições definidas para cada produto
+
+## Tecnologias Utilizadas
+
+### Backend
+- **Java 17**
+- **Spring Boot 3.2.0**
+- **Spring Data JPA**
+- **Banco de Dados H2** (em memória)
+- **Maven**
+
+### Frontend
+- **Vue.js 3**
+- **Vite** (build tool)
+- **Vue Router** (gerenciamento de rotas)
+- **Vue i18n** (internacionalização)
+- **Axios** (comunicação com API)
+
+## Estrutura de Pastas
 
 ```
 production-optimizer/
-├── backend/           # Spring Boot API
-├── frontend/          # Vue.js 3 SPA
-└── README.md
+├── backend/                    # API REST Spring Boot
+│   ├── src/main/java/         # Código fonte Java
+│   │   └── com/example/productionoptimizer/
+│   │       ├── controller/    # Controladores REST
+│   │       ├── service/       # Lógica de negócio
+│   │       ├── repository/    # Repositórios JPA
+│   │       ├── entity/        # Entidades do banco
+│   │       ├── dto/           # Data Transfer Objects
+│   │       └── exception/     # Tratamento de exceções
+│   ├── src/main/resources/    # Arquivos de configuração
+│   ├── src/test/              # Testes unitários
+│   └── pom.xml                # Dependências Maven
+│
+├── frontend/                  # Aplicação Vue.js
+│   ├── src/
+│   │   ├── views/             # Componentes de página
+│   │   ├── router/            # Configuração de rotas
+│   │   ├── api/               # Configuração Axios
+│   │   ├── i18n/              # Mensagens internacionalizadas
+│   │   ├── App.vue            # Componente principal
+│   │   └── main.js            # Entry point
+│   ├── dist/                  # Build de produção
+│   ├── package.json           # Dependências npm
+│   └── vite.config.js         # Configuração Vite
+│
+└── README.md                  # Este arquivo
 ```
 
-## Prerequisites
+## Instruções para Executar Localmente
 
-- Java 17
-- Node.js (LTS version)
+### Pré-requisitos
+
+- Java 17 ou superior
+- Node.js (versão LTS)
 - Maven
 
-## Backend Setup
-
-1. Navigate to the backend directory:
-   
-```
-bash
-   cd backend
-   
-```
-
-2. Build and run the application:
-   
-```
-bash
-   ./mvnw spring-boot:run
-   
-```
-
-   The API will be available at `http://localhost:8080`
-
-3. To run tests:
-   
-```
-bash
-   ./mvnw test
-   
-```
-
-## Frontend Setup
-
-1. Navigate to the frontend directory:
-   
-```
-bash
-   cd frontend
-   
-```
-
-2. Install dependencies:
-   
-```
-bash
-   npm install
-   
-```
-
-3. Run the development server:
-   
-```
-bash
-   npm run dev
-   
-```
-
-   The frontend will be available at `http://localhost:3000`
-
-## API Endpoints
-
-### Raw Materials
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | /api/raw-materials | Get all raw materials |
-| GET | /api/raw-materials/{id} | Get raw material by ID |
-| POST | /api/raw-materials | Create new raw material |
-| PUT | /api/raw-materials/{id} | Update raw material |
-| DELETE | /api/raw-materials/{id} | Delete raw material |
-
-### Products
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | /api/products | Get all products |
-| GET | /api/products/{id} | Get product by ID |
-| POST | /api/products | Create new product |
-| PUT | /api/products/{id} | Update product |
-| DELETE | /api/products/{id} | Delete product |
-
-### Optimization
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | /api/optimization/optimize | Run optimization algorithm |
-
-## Optimization Algorithm
-
-The application uses a greedy algorithm to optimize production:
-
-1. Sort products by sales value (highest first)
-2. For each product, calculate maximum producible quantity based on available raw materials
-3. Produce as many units as possible while respecting raw material constraints
-4. Update remaining raw materials after each product
-
-## Technology Stack
-
 ### Backend
-- Java 17
-- Spring Boot 3.2.0
-- H2 Database
-- Spring Data JPA
+
+1. Acesse o diretório do backend:
+
+```
+bash
+cd backend
+```
+
+2. Compile e execute a aplicação:
+
+```
+bash
+./mvnw spring-boot:run
+```
+
+A API estará disponível em: `http://localhost:8080`
+
+3. Para executar os testes:
+
+```
+bash
+./mvnw test
+```
 
 ### Frontend
-- Vue.js 3
-- Vite
-- Axios
-- Vue Router
-- Vue i18n
 
-## Development
+1. Acesse o diretório do frontend:
 
-The backend runs on port 8080 and the frontend on port 3000. The frontend is configured to proxy API requests to the backend.
+```
+bash
+cd frontend
+```
 
-To access the H2 console (for development), go to:
-`http://localhost:8080/h2-console`
+2. Instale as dependências:
 
-JDBC URL: `jdbc:h2:mem:productiondb`
+```
+bash
+npm install
+```
+
+3. Execute o servidor de desenvolvimento:
+
+```
+bash
+npm run dev
+```
+
+A aplicação frontend estará disponível em: `http://localhost:3000`
+
+4. Para gerar o build de produção:
+
+```
+bash
+npm run build
+```
+
+## Endpoints da API
+
+### Matérias-Primas
+
+| Método | Endpoint | Descrição |
+|--------|----------|------------|
+| GET | /api/raw-materials | Listar todas as matérias-primas |
+| GET | /api/raw-materials/{id} | Obter matéria-prima por ID |
+| POST | /api/raw-materials | Criar nova matéria-prima |
+| PUT | /api/raw-materials/{id} | Atualizar matéria-prima |
+| DELETE | /api/raw-materials/{id} | Excluir matéria-prima |
+
+### Produtos
+
+| Método | Endpoint | Descrição |
+|--------|----------|------------|
+| GET | /api/products | Listar todos os produtos |
+| GET | /api/products/{id} | Obter produto por ID |
+| POST | /api/products | Criar novo produto |
+| PUT | /api/products/{id} | Atualizar produto |
+| DELETE | /api/products/{id} | Excluir produto |
+
+### Otimização
+
+| Método | Endpoint | Descrição |
+|--------|----------|------------|
+| POST | /api/optimization/optimize | Executar algoritmo de otimização |
+
+## Algoritmo de Otimização
+
+O sistema utiliza um algoritmo guloso para otimizar a produção:
+
+1. **Ordenação**: Produtos são ordenados por valor de venda (maior primeiro)
+2. **Cálculo**: Para cada produto, calcula-se a quantidade máxima producible com base nas matérias-primas disponíveis
+3. **Produção**: Fabrica-se a maior quantidade possível respeitando as restrições de materiais
+4. **Atualização**: Após cada produto, atualiza-se o restante das matérias-primas disponíveis
+
+## Console de Desenvolvimento
+
+Para acessar o console H2 (apenas desenvolvimento):
+- URL: `http://localhost:8080/h2-console`
+- JDBC URL: `jdbc:h2:mem:productiondb`
+
+## Informações do Desenvolvimento
+
+Este projeto foi desenvolvido em aproximadamente **11h43m** no dia **24/02**.
+
+## Repositório
+
+O código fonte está disponível em: [https://github.com/kaike9612/production-optimizer](https://github.com/kaike9612/production-optimizer)
+
+## Licença
+
+Este projeto é para fins educacionais e de demonstração.
